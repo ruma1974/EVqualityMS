@@ -1,12 +1,5 @@
 # install dependencies
 
-usethis::use_package("scales", type ="imports")
-usethis::use_package("dplyr", type ="imports")
-usethis::use_package("ComplexHeatmap", type ="imports")
-usethis::use_package("gplots", type ="imports")
-usethis::use_package("ggpubr", type ="imports")
-usethis::use_package("cowplot", type ="imports")
-
 BiocManager::install("orthogene")
 install.packages("scales")
 install.packages("dplyr")
