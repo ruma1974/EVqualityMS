@@ -1,10 +1,15 @@
 # install dependencies
 
 BiocManager::install("orthogene")
+
 install.packages("scales")
+
 install.packages("dplyr")
+
 install.packages("ComplexHeatmap")
+
 install.packages("gplots")
+
 install.packages("ggpubr")
 
 # install EVqualityMS
