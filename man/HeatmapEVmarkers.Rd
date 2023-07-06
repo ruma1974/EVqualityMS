@@ -19,7 +19,7 @@ HeatmapEVmarkers(
 \arguments{
 \item{x}{(data frame with a GN column)}
 
-\item{Fac}{(Fac - should have length nrow(DF)-1)}
+\item{Fac}{(Fac - should have length ncol(DF)-1)}
 
 \item{plotHeat}{(bool)}
 

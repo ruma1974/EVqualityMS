@@ -18,12 +18,10 @@ plotdensity <- function(Mat,Th=1,specie="human",annotation="GN",Ydelta=0,...){
 #
 #
 aL=exoL[[specie]][[annotation]]
-#print(aL)
 Mat[rowSums(Mat)>Th,]
 De=density(Mat[Mat>Th])
 plot(De,cex.lab=2,cex.main=2,...)
 idxL=which(rownames(Mat) %in% aL)
-#print(rownames(Mat))
 MaxE=0
 if (length(idxL)>0){
 for (i in 1:length(idxL)){
@@ -41,7 +39,7 @@ return(TRUE) # invisible(TRUE)
 
 #' Quality control of EV data
 #' @param x (data frame with a GN column)
-#' @param Fac (Fac - should have length nrow(DF)-1)
+#' @param Fac (Fac - should have length ncol(DF)-1)
 #' @param color=NULL (vector with ten colors)
 #' @param plotHeat (bool)
 #' @param IncludeClinical (bool)
@@ -74,9 +72,7 @@ x$GN=DF[,idx]
 if (specie!="Homo sapiens"){
 gnL=x$GN
 #gnL
-#specie="Mus musculus"
 res <- orthogene::convert_orthologs(gene_df = gnL, input_species = specie, output_species = "Homo sapiens", method = "gprofiler")
-#paste(rownames(res),x$GN[res$index])
 x$GN[res$index]=rownames(res)
 }
 
@@ -95,11 +91,9 @@ x[,i]=xL
 idx=which(names(x) %in% "GN")
 Rsum=rowSums(as.matrix(x[,-idx]))
 idxL=order(Rsum,decreasing =TRUE)
-#Rsum[idxL]
 x=x[idxL,]
 x=x[!duplicated(x$GN),]
 
-#str(as.matrix(x[,-idx]))
 
 # merge with markers data
 DF=exosomeRM::ExoData[["Expression"]]
@@ -117,12 +111,9 @@ mat=mat[,-iL]
 # IncludeAlbumine
 if (IncludeAlbumine==FALSE){mat=mat[rownames(mat)!="ALB",]}
 # plot
-#print(mat)
 if (plotHeat==TRUE){
 # set up column colors of labels
 colL=rep("black",nrow(mat))
-#idx=which("CD63"==rownames(mat))
-#colL[idx]="green"
 # Contaminants
 for (i in it(exosomeRM::ExoData$Contaminants)){
 id2=which(exosomeRM::ExoData$Contaminants[i]==rownames(mat))
@@ -140,12 +131,6 @@ colL[id2]="blue"
 }
 # plot
 x11(w=20,h=10)
-#p=ComplexHeatmap::Heatmap(t(mat), col = color, name = "ranked expression",heatmap_legend_param = list(at = c(0, 0.25, 0.5, 0.75, 1)))
-#p=ComplexHeatmap::draw(p)
-#print(rownames(mat))
-#print(rownames(mat)[p@ht_list[[1]]@column_order_list[[1]]])
-#idx=which("CD63"==rownames(mat)[p@ht_list[[1]]@column_order_list[[1]]])
-#rownames(mat$Expression)[mat$Heatmap@ht_list[[1]]@column_order_list[[1]]]
 p=ComplexHeatmap::Heatmap(t(mat), col = color, name = "ranked expression",heatmap_legend_param = list(at = c(0, 0.25, 0.5, 0.75, 1)),column_names_gp = ggfun::gpar(col = colL,fontsize = fontSizeCol),row_names_gp = grid::gpar(fontsize = fontSizeRow))
 
 print(p)
@@ -187,8 +172,8 @@ invisible(res)
 
 #' Plot heatmap with markers from ISEV paper
 #' @param DF (DF - data frame with a GN column)
-#' @param Fac (Fac - should have length nrow(DF)-1)
-#' @param color (color - vector with ten colors fpr type of marker)
+#' @param Fac (Fac - should have length ncol(DF)-1)
+#' @param color (color - vector with ten colors for type of marker)
 #' @param CatColL (color - protein category)
 #' @param IncludeAlbumine (bool )
 #' @param plotCatDescription (bool )
@@ -197,7 +182,7 @@ invisible(res)
 #' @examples
 #' ---
 #' @export
-heatmapEVqualityFac <- function(DF,Fac=NULL,color = NULL,CatColL=NULL,IncludeAlbumine = TRUE,plotCatDescription=TRUE){
+heatmapEVqualityISEV <- function(DF,Fac=NULL,color = NULL,CatColL=NULL,IncludeAlbumine = TRUE,plotCatDescription=TRUE){
 #
 #
 if (is.null(color)){color=c("grey60","grey30","gray15","steelblue3","navy","seagreen1","seagreen4","palegreen","violetred4","red")}
@@ -257,12 +242,7 @@ mat=mat[-idxL,]
 # IncludeAlbumine
 if (IncludeAlbumine==FALSE){mat=mat[rownames(mat)!="ALB",]}
 # plot
-#print(mat)
-#if (plotHeat==TRUE){
-# set up column colors of labels
 colL=rep("black",nrow(mat))
-#idx=which("CD63"==rownames(mat))
-#colL[idx]="green"
 # Contaminants
 conL=append(c("APOA1","APOA2","APOB","UMOD"),exosomeRM::ExoData$Contaminants)
 for (i in it(conL)){
@@ -286,44 +266,21 @@ for (i in it(mat)){
 print(rownames(mat)[i])
 id=which(rownames(mat)[i]==exosomeRM::DFanno$GN)
 if (id>=0){
-#CatColL=c(`membrane cell unspecific` = "#F0A3FF", `membrane cell specific` = "#0075DC", 
-#cytosolic = "#993F00", `cytosolic promiscuous` = "#4C005C", lipoproteins = "#191919", 
-#aggregates = "#005C31", `secretory pathway` = "#2BCE48", `autophagosomes and cytoskeleton` = "#FFCC99", 
-#secreted = "#808080", `extracellular matrix` = "#94FFB5")
 
 if (plotCatDescription==TRUE){
 clustL[i]=exosomeRM::DFanno$CatDes[id]
 } else {
 clustL[i]=exosomeRM::DFanno$Cat[id]
-#CatColL=c("#F0A3FF",  "#0075DC", "#993F00",  "#4C005C",  "#191919", "#005C31",  "#2BCE48",  "#FFCC99",  "#808080", "#94FFB5")
-#clustL %>% unique %>% length %>% print	
-#names(CatColL) %>% length %>% print
-#names(CatColL)=unique(clustL)
 }
 }
 }
-#mat[9,]
-#DFanno$GN
-#clustL %>% table
-
-#CatColL=StringVecRMp::IfElseL(clustL %>% unique, clustL %>% unique, colorRM::getCategoryColors2(clustL %>% unique %>% length))
-#dput(colorRM::getCategoryColors2(15))
 Ncol=clustL %>% unique %>% length
-#CatColL=colorRM::getCategoryColors2(clustL %>% unique %>% length)
 CatColL=CatColL[1:Ncol]
 names(CatColL)=unique(clustL)
 print(CatColL)
-
-#x11(w=20,h=5)
 p1 = ComplexHeatmap::Heatmap(t(mat), name = "mat", column_names_gp = ggfun::gpar(col = colL),cluster_columns = ComplexHeatmap::cluster_within_group(t(mat),as.numeric(factor(clustL))),heatmap_legend_param = list(position = "top", title = "Regulation", legend_direction = "horizontal"),top_annotation = ComplexHeatmap::HeatmapAnnotation(Category = clustL, col = list(Category = CatColL)))
 p1 = ComplexHeatmap::draw(p1, heatmap_legend_side = "bottom")
 
-#
-# plot
-#x11(w=20,h=10)
-#p=ComplexHeatmap::Heatmap(t(mat), col = color, name = "ranked expression",heatmap_legend_param = list(at = c(0, 0.25, 0.5, 0.75, 1)),column_names_gp = #ggfun::gpar(col = colL))
-#print(p)
-#}
 # print Q index 
 idxCL=which(x$GN %in% exosomeRM::ExoData[["Contaminants"]])
 idxEL=which(x$GN %in% exosomeRM::ExoData[["TopMarker"]])
@@ -384,12 +341,8 @@ DFref=rbind(DFref,DF)
 sp <- ggpubr::ggscatter(DFref, x =  "EVmarker", y ="Contaminants",color = "source", palette = palette,size = 3, alpha = 0.6)+ggpubr::border()
 # Marginal density plot of x (top panel) and y (right panel)
 xplot <- ggpubr::ggdensity(DFref, x="EVmarker", fill = "source",palette = palette)
-#yplot <- ggpubr::ggdensity(DFref, y="Contaminants", fill = "source",palette = "jco")+ggpubr::rotate()
-#
-#yplot <- yplot + ggpubr::clean_theme() + ggpubr::rremove("legend")
 xplot <- xplot + ggpubr::clean_theme() + ggpubr::rremove("legend")
 # Arranging the plot using cowplot
-#p <- cowplot::plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv",rel_widths = c(2, 1), rel_heights = c(1, 2))
 p <- cowplot::plot_grid(xplot, sp,  ncol = 1, align = "hv", rel_heights = c(1, 2))
 return(p) # invisible(res)
 }
