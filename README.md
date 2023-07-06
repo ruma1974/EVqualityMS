@@ -16,7 +16,7 @@ install.packages("ggpubr")
 
 library(remotes)
 
-remotes::install_github("EVqualityMS/@master")
+remotes::install_github("ruma1974/EVqualityMS@master")
 
 library(EVqualityMS)
 
