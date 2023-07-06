@@ -2,11 +2,11 @@
 
 BiocManager::install("orthogene")
 
+BiocManager::install("ComplexHeatmap")
+
 install.packages("scales")
 
 install.packages("dplyr")
-
-install.packages("ComplexHeatmap")
 
 install.packages("gplots")
 
