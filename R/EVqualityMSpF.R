@@ -18,7 +18,7 @@
 #' ---
 #' @export
 HeatmapEVmarkers <- function(x,Fac=NULL,color=NULL,plotHeat=TRUE,IncludeClinical=TRUE,IncludeAlbumine=TRUE,fontSizeCol=12,fontSizeRow=12,specie="Homo sapiens"){
-#
+# 
 #
 if (is.null(color)){color=c("grey60","grey30","gray15","steelblue3","navy","seagreen1","seagreen4","palegreen","violetred4","red")}
 #if (length(color)!=10){stop("Length of color must be 10")}
@@ -80,17 +80,18 @@ if (plotHeat==TRUE){
 # set up column colors of labels
 colL=rep("black",nrow(mat))
 # Contaminants
-for (i in it(EVqualityMS::ExoData$Contaminants)){
+
+for (i in 1:length(EVqualityMS::ExoData$Contaminants)){
 id2=which(EVqualityMS::ExoData$Contaminants[i]==rownames(mat))
 colL[id2]="red"
 }
 # TopMarker
-for (i in it(EVqualityMS::ExoData$TopMarker)){
+for (i in 1:length(EVqualityMS::ExoData$TopMarker)){
 id2=which(EVqualityMS::ExoData$TopMarker[i]==rownames(mat))
 colL[id2]="green"
 }
 # 
-for (i in it(EVqualityMS::ExoData$lEV)){
+for (i in 1:length(EVqualityMS::ExoData$lEV)){
 id2=which(EVqualityMS::ExoData$lEV[i]==rownames(mat))
 colL[id2]="blue"
 }
@@ -210,24 +211,24 @@ if (IncludeAlbumine==FALSE){mat=mat[rownames(mat)!="ALB",]}
 colL=rep("black",nrow(mat))
 # Contaminants
 conL=append(c("APOA1","APOA2","APOB","UMOD"),EVqualityMS::ExoData$Contaminants)
-for (i in it(conL)){
+for (i in 1:length(conL)){
 id2=which(conL[i]==rownames(mat))
 colL[id2]="red"
 }
 # TopMarker
-for (i in it(EVqualityMS::ExoData$TopMarker)){
+for (i in 1:length(EVqualityMS::ExoData$TopMarker)){
 id2=which(EVqualityMS::ExoData$TopMarker[i]==rownames(mat))
 colL[id2]="green"
 }
 # microvesicles
-for (i in it(EVqualityMS::ExoData$lEV)){
+for (i in 1:length(EVqualityMS::ExoData$lEV)){
 id2=which(EVqualityMS::ExoData$lEV[i]==rownames(mat))
 colL[id2]="blue"
 }
 # cluster
 clustL=rep("",nrow(mat))
 
-for (i in it(mat)){
+for (i in 1:length(nrow(mat))){
 print(rownames(mat)[i])
 id=which(rownames(mat)[i]==EVqualityMS::DFanno$GN)
 if (id>=0){
