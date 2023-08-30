@@ -39,9 +39,11 @@ Fac=append(rep("Normal",9),rep("HFD",9))
 EVqualityMS::HeatmapEVmarkers(DFmouseTest,Fac=Fac,specie="Mus musculus",fontSizeRow = 20)
 
 #- test 5 - scatter plot of quality metrics for reference data
+
 exosomeRM::scatterPlot()
 
 #- test 6 - scatter plot of quality metrics for all reference data and new data
+
 EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "all")
 
 #- test 7 - scatter plot of quality metrics for selected reference data and new data

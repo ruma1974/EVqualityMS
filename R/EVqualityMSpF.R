@@ -1,40 +1,5 @@
 # _"/media/rune/Jochime2/RscripterCool/Rprojects/rmpackges/EVqualityMSp.R"
 
-#- Density
-
-
-#' plot density of expression values indicating expression values for top exosome markers
-#' @param Mat (matrix - with tranformation)
-#' @param Th=1 (float - threshold used for making the density of expression values)
-#' @param specie (string- human)
-#' @param annotation (string - GN)
-#' @param Ydelta (float - y displacement of label)
-#' @return bool
-#' @keywords plot
-#' @examples
-#' ---
-#' @export
-plotdensity <- function(Mat,Th=1,specie="human",annotation="GN",Ydelta=0,...){
-#
-#
-aL=exoL[[specie]][[annotation]]
-Mat[rowSums(Mat)>Th,]
-De=density(Mat[Mat>Th])
-plot(De,cex.lab=2,cex.main=2,...)
-idxL=which(rownames(Mat) %in% aL)
-MaxE=0
-if (length(idxL)>0){
-for (i in 1:length(idxL)){
-print(paste(rownames(Mat)[idxL[i]],mean(Mat[idxL[i],])))
-if (MaxE<mean(Mat[idxL[i],])){MaxE=mean(Mat[idxL[i],])}
-basicPlotRM::RefVertical(mean(Mat[idxL[i],]))
-basicPlotRM::textVertical(mean(Mat[idxL[i],]),max(De$y)/2,rownames(Mat)[idxL[i]],Ydelta=Ydelta)
-}}
-print(MaxE-De$x[max(De$y)==De$y])
-return(TRUE) # invisible(TRUE)
-}
-
-
 
 
 #' Quality control of EV data
@@ -96,7 +61,7 @@ x=x[!duplicated(x$GN),]
 
 
 # merge with markers data
-DF=exosomeRM::ExoData[["Expression"]]
+DF=EVqualityMS::ExoData[["Expression"]]
 DF=DF %>% dplyr::left_join( x, by = "GN")
 
 # remove NAs
@@ -115,18 +80,18 @@ if (plotHeat==TRUE){
 # set up column colors of labels
 colL=rep("black",nrow(mat))
 # Contaminants
-for (i in it(exosomeRM::ExoData$Contaminants)){
-id2=which(exosomeRM::ExoData$Contaminants[i]==rownames(mat))
+for (i in it(EVqualityMS::ExoData$Contaminants)){
+id2=which(EVqualityMS::ExoData$Contaminants[i]==rownames(mat))
 colL[id2]="red"
 }
 # TopMarker
-for (i in it(exosomeRM::ExoData$TopMarker)){
-id2=which(exosomeRM::ExoData$TopMarker[i]==rownames(mat))
+for (i in it(EVqualityMS::ExoData$TopMarker)){
+id2=which(EVqualityMS::ExoData$TopMarker[i]==rownames(mat))
 colL[id2]="green"
 }
 # 
-for (i in it(exosomeRM::ExoData$lEV)){
-id2=which(exosomeRM::ExoData$lEV[i]==rownames(mat))
+for (i in it(EVqualityMS::ExoData$lEV)){
+id2=which(EVqualityMS::ExoData$lEV[i]==rownames(mat))
 colL[id2]="blue"
 }
 # plot
@@ -136,12 +101,12 @@ p=ComplexHeatmap::Heatmap(t(mat), col = color, name = "ranked expression",heatma
 print(p)
 }
 # print Q index 
-idxCL=which(x$GN %in% exosomeRM::ExoData[["Contaminants"]])
-idxEL=which(x$GN %in% exosomeRM::ExoData[["TopMarker"]])
+idxCL=which(x$GN %in% EVqualityMS::ExoData[["Contaminants"]])
+idxEL=which(x$GN %in% EVqualityMS::ExoData[["TopMarker"]])
 if (length(idxCL)>0){
-qL=colSums(x[idxEL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["TopMarker"]])-colSums(x[idxCL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["Contaminants"]])
+qL=colSums(x[idxEL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["TopMarker"]])-colSums(x[idxCL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["Contaminants"]])
 } else {
-qL=colSums(x[idxEL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["TopMarker"]])
+qL=colSums(x[idxEL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["TopMarker"]])
 }
 if (length(idxEL)==0){
 qL=0
@@ -149,10 +114,10 @@ qL=0
 print(qL)
 # calculate contamination and exosome markers
 if (length(idxCL)>0){
-qC=colSums(x[idxCL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["Contaminants"]])
+qC=colSums(x[idxCL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["Contaminants"]])
 } else {qC=0}
 if (length(idxEL)>0){
-qE=colSums(x[idxEL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["TopMarker"]])
+qE=colSums(x[idxEL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["TopMarker"]])
 } else {qE=0}
 # collect results
 res=list()
@@ -224,10 +189,10 @@ x=x[!duplicated(x$GN),]
 #str(as.matrix(x[,-idx]))
 
 # merge with markers data
-# DF=exosomeRM::ExoData[["Expression"]]
+# DF=EVqualityMS::ExoData[["Expression"]]
 #which(DFanno$GN=="ENO1")
 
-DF=data.frame(GN=exosomeRM::DFanno$GN)
+DF=data.frame(GN=EVqualityMS::DFanno$GN)
 DF=DF %>% dplyr::left_join( x, by = "GN")
 
 # remove NAs
@@ -244,19 +209,19 @@ if (IncludeAlbumine==FALSE){mat=mat[rownames(mat)!="ALB",]}
 # plot
 colL=rep("black",nrow(mat))
 # Contaminants
-conL=append(c("APOA1","APOA2","APOB","UMOD"),exosomeRM::ExoData$Contaminants)
+conL=append(c("APOA1","APOA2","APOB","UMOD"),EVqualityMS::ExoData$Contaminants)
 for (i in it(conL)){
 id2=which(conL[i]==rownames(mat))
 colL[id2]="red"
 }
 # TopMarker
-for (i in it(exosomeRM::ExoData$TopMarker)){
-id2=which(exosomeRM::ExoData$TopMarker[i]==rownames(mat))
+for (i in it(EVqualityMS::ExoData$TopMarker)){
+id2=which(EVqualityMS::ExoData$TopMarker[i]==rownames(mat))
 colL[id2]="green"
 }
 # microvesicles
-for (i in it(exosomeRM::ExoData$lEV)){
-id2=which(exosomeRM::ExoData$lEV[i]==rownames(mat))
+for (i in it(EVqualityMS::ExoData$lEV)){
+id2=which(EVqualityMS::ExoData$lEV[i]==rownames(mat))
 colL[id2]="blue"
 }
 # cluster
@@ -264,13 +229,13 @@ clustL=rep("",nrow(mat))
 
 for (i in it(mat)){
 print(rownames(mat)[i])
-id=which(rownames(mat)[i]==exosomeRM::DFanno$GN)
+id=which(rownames(mat)[i]==EVqualityMS::DFanno$GN)
 if (id>=0){
 
 if (plotCatDescription==TRUE){
-clustL[i]=exosomeRM::DFanno$CatDes[id]
+clustL[i]=EVqualityMS::DFanno$CatDes[id]
 } else {
-clustL[i]=exosomeRM::DFanno$Cat[id]
+clustL[i]=EVqualityMS::DFanno$Cat[id]
 }
 }
 }
@@ -282,12 +247,12 @@ p1 = ComplexHeatmap::Heatmap(t(mat), name = "mat", column_names_gp = ggfun::gpar
 p1 = ComplexHeatmap::draw(p1, heatmap_legend_side = "bottom")
 
 # print Q index 
-idxCL=which(x$GN %in% exosomeRM::ExoData[["Contaminants"]])
-idxEL=which(x$GN %in% exosomeRM::ExoData[["TopMarker"]])
+idxCL=which(x$GN %in% EVqualityMS::ExoData[["Contaminants"]])
+idxEL=which(x$GN %in% EVqualityMS::ExoData[["TopMarker"]])
 if (length(idxCL)>0){
-qL=colSums(x[idxEL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["TopMarker"]])-colSums(x[idxCL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["Contaminants"]])
+qL=colSums(x[idxEL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["TopMarker"]])-colSums(x[idxCL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["Contaminants"]])
 } else {
-qL=colSums(x[idxEL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["TopMarker"]])
+qL=colSums(x[idxEL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["TopMarker"]])
 }
 if (length(idxEL)==0){
 qL=0
@@ -295,10 +260,10 @@ qL=0
 print(qL)
 # calculate contamination and exosome markers
 if (length(idxCL)>0){
-qC=colSums(x[idxCL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["Contaminants"]])
+qC=colSums(x[idxCL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["Contaminants"]])
 } else {qC=0}
 if (length(idxEL)>0){
-qE=colSums(x[idxEL,-idx,drop=FALSE])/length(exosomeRM::ExoData[["TopMarker"]])
+qE=colSums(x[idxEL,-idx,drop=FALSE])/length(EVqualityMS::ExoData[["TopMarker"]])
 } else {qE=0}
 # collect results
 res=list()
@@ -315,9 +280,9 @@ invisible(res)
 #' @param x (DF- quantitative values in columns and last column holds the gene names - GN)
 #' @param Name (string - name of the new samples)
 #' @param src (string - which reference samples to include)
-#' @param palette
+#' @param palette (colorL or palette)
 #' @return ggplot
-#' @keywords
+#' @keywords Quality_control
 #' @examples
 #' ---
 #' @export
@@ -326,10 +291,10 @@ scatterPlot <- function(x=NULL,Name="new",src="all",palette="jco"){
 #
 #x = DFurine; Name = "Urine"; src = "plasma"
 if (!is.null(x)){
-res=exosomeRM::HeatmapEVmarkers(x,plotHeat =FALSE)
+res=EVqualityMS::HeatmapEVmarkers(x,plotHeat =FALSE)
 DF=data.frame(EVmarker=res$"EV marker",Contaminants=res$Contaminants,source=Name,sample="")
 }
-DFref=exosomeRM::DFqualityRef
+DFref=EVqualityMS::DFqualityRef
 # select reference samples
 if (src!="all"){DFref=DFref[DFref$source==src,]}
 #
@@ -338,12 +303,19 @@ DFref=rbind(DFref,DF)
 }
 #
 # palette = c("red", "green", "blue")
-sp <- ggpubr::ggscatter(DFref, x =  "EVmarker", y ="Contaminants",color = "source", palette = palette,size = 3, alpha = 0.6)+ggpubr::border()
+## sp <- ggpubr::ggscatter(DFref, x =  "EVmarker", y ="Contaminants",color = "source", palette = palette,size = 3, alpha = 0.6)+ggpubr::border()
 # Marginal density plot of x (top panel) and y (right panel)
-xplot <- ggpubr::ggdensity(DFref, x="EVmarker", fill = "source",palette = palette)
-xplot <- xplot + ggpubr::clean_theme() + ggpubr::rremove("legend")
+## xplot <- ggpubr::ggdensity(DFref, x="EVmarker", fill = "source",palette = palette)
+## xplot <- xplot + ggpubr::clean_theme() + ggpubr::rremove("legend")
 # Arranging the plot using cowplot
-p <- cowplot::plot_grid(xplot, sp,  ncol = 1, align = "hv", rel_heights = c(1, 2))
+## p <- cowplot::plot_grid(xplot, sp,ncol = 1, align = "hv", rel_heights = c(1, 1.5,1))
+p=ggpubr::ggscatterhist(
+  DFref, x = "EVmarker", y = "Contaminants",position=ggplot2::position_jitter(h=0.05,w=0.05),
+  color = "source", size = "source",shape ="source", alpha = 0.6,font.tickslab = c(20, "plain"),font.legend = c(16, "plain"),font.x=c(16, "plain"),font.y=c(16, "plain"),
+  palette = palette,
+  margin.params = list(fill = "source", color = "black", size = 0.2)
+  ) 
+
 return(p) # invisible(res)
 }
 

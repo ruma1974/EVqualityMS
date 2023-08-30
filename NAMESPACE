@@ -2,7 +2,6 @@
 
 export(HeatmapEVmarkers)
 export(heatmapEVqualityISEV)
-export(plotdensity)
 export(scatterPlot)
 importFrom(Rcpp,sourceCpp)
 useDynLib(EVqualityMS)

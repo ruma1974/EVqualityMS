@@ -12,6 +12,8 @@ scatterPlot(x = NULL, Name = "new", src = "all", palette = "jco")
 \item{Name}{(string - name of the new samples)}
 
 \item{src}{(string - which reference samples to include)}
+
+\item{palette}{(colorL or palette)}
 }
 \value{
 ggplot
@@ -22,3 +24,4 @@ plot scatter of relative contamination and EV marker abundance
 \examples{
 ---
 }
+\keyword{Quality_control}
