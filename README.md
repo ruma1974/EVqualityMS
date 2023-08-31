@@ -13,6 +13,7 @@ install.packages("gplots")
 install.packages("ggpubr")
 
 install.packages("magrittr")
+
 install.packages("remotes")
 
 # install EVqualityMS
@@ -22,6 +23,7 @@ library(remotes)
 remotes::install_github("ruma1974/EVqualityMS@master")
 
 library(EVqualityMS)
+library(magrittr)
 
 #- test 1 - data in package
 data(DFmouseTest)
