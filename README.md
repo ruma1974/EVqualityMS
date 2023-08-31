@@ -12,6 +12,9 @@ install.packages("gplots")
 
 install.packages("ggpubr")
 
+install.packages("magrittr")
+install.packages("remotes")
+
 # install EVqualityMS
 
 library(remotes)
