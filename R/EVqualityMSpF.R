@@ -62,7 +62,7 @@ x=x[!duplicated(x$GN),]
 
 # merge with markers data
 DF=EVqualityMS::ExoData[["Expression"]]
-DF=DF %>% dplyr::left_join( x, by = "GN")
+DF=DF magrittr::%>% dplyr::left_join( x, by = "GN")
 
 # remove NAs
 DF[is.na(DF)]=0
@@ -194,7 +194,7 @@ x=x[!duplicated(x$GN),]
 #which(DFanno$GN=="ENO1")
 
 DF=data.frame(GN=EVqualityMS::DFanno$GN)
-DF=DF %>% dplyr::left_join( x, by = "GN")
+DF=DF magrittr::%>% dplyr::left_join( x, by = "GN")
 
 # remove NAs
 DF[is.na(DF)]=0
