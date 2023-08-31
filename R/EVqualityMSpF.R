@@ -1,4 +1,3 @@
-# _"/media/rune/Jochime2/RscripterCool/Rprojects/rmpackges/EVqualityMSp.R"
 
 
 
