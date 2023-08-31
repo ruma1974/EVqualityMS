@@ -1,4 +1,10 @@
-# install dependencies
+# Windows
+The code below have been tested on several Windows systems using R4.3.1, Rtools (rtools43-5550-5548) and RStudio-2023.06.2-561. If you allready have the dependency packages install then you can jump directly to the section "Install EVqualityMS"
+
+# Linux
+On linux the below installation instructions should work directly. Drop a note if this is not the case.
+
+# Install dependencies
 
 BiocManager::install("orthogene")
 
@@ -16,45 +22,49 @@ install.packages("magrittr")
 
 install.packages("remotes")
 
-# install EVqualityMS
+# Install EVqualityMS
 
 library(remotes)
 
 remotes::install_github("ruma1974/EVqualityMS@master")
 
 library(EVqualityMS)
+
 library(magrittr)
 
-#- test 1 - data in package
+#- Test 1 - data in package
+
 data(DFmouseTest)
+
 data(DFspecie)
+
 data(DFurine)
 
-#- test 2 - EV and contaminant marker plot
+#- Test 2 - EV and contaminant marker plot
 
 EVqualityMS::HeatmapEVmarkers(DFurine,fontSizeRow = 20)
 
-#- test 3 - ISEV marker plot
+#- Test 3 - ISEV marker plot
 
 res=EVqualityMS::heatmapEVqualityISEV( DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE,plotCatDescription = TRUE)
 
-#- test 4 - mapping mouse gene symbols
+#- Test 4 - mapping mouse gene symbols
 
 Fac=append(rep("Normal",9),rep("HFD",9))
 EVqualityMS::HeatmapEVmarkers(DFmouseTest,Fac=Fac,specie="Mus musculus",fontSizeRow = 20)
 
-#- test 5 - scatter plot of quality metrics for reference data
+#- Test 5 - scatter plot of quality metrics for reference data
 
 exosomeRM::scatterPlot()
 
-#- test 6 - scatter plot of quality metrics for all reference data and new data
+#- Test 6 - scatter plot of quality metrics for all reference data and new data
 
 EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "all")
 
-#- test 7 - scatter plot of quality metrics for selected reference data and new data
+#- Test 7 - scatter plot of quality metrics for selected reference data and new data
 
 res=EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "plasma",palette =c("grey","yellow"))
 
-#- test 7 list common species
+#- Test 7 list common species
 
 EVqualityMS::DFspecie
