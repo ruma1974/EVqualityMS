@@ -45,6 +45,7 @@ data(DFurine)
 # Data frame with main species supported
 data(DFspecie)
 
+# Test of functions
 
 #- Test 2 - EV and contaminant marker plot
 
