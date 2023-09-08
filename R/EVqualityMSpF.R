@@ -227,7 +227,7 @@ colL[id2]="blue"
 # cluster
 clustL=rep("",nrow(mat))
 
-for (i in 1:length(nrow(mat))){
+for (i in 1:nrow(mat)){
 print(rownames(mat)[i])
 id=which(rownames(mat)[i]==EVqualityMS::DFanno$GN)
 if (id>=0){
