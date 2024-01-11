@@ -72,9 +72,16 @@ EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "all")
 
 res=EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "plasma",palette =c("grey","yellow"))
 
-#- Test 7 list common species
+#- Test 8 list common species
 
 EVqualityMS::DFspecie
+
+#- Test 9 EV subpopulations
+EVqualityMS::heatmapEVsub( DF=DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE)
+
+#- Test 10 EV CD marker coverage
+EVqualityMS::heatmapEVsubCD( DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE)
+
 
 # FAQ
 
