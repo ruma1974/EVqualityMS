@@ -35,14 +35,14 @@ library(magrittr)
 
 #- Test 1 - data in package
 
-# Mosue test data set. First columns are quantitative values and last column is gene symboles
+#- Mouse test data set. First columns are quantitative values and last column is gene symboles
 
 data(DFmouseTest)
 
-# Human urinary EV test data set. First columns are quantitative values and last column is gene symboles
+#- Human urinary EV test data set. First columns are quantitative values and last column is gene symboles
 data(DFurine)
 
-# Data frame with main species supported
+#- Data frame with main species supported
 data(DFspecie)
 
 # Test of functions
