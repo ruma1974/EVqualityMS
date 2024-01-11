@@ -4,7 +4,14 @@
 \alias{scatterPlot}
 \title{plot scatter of relative contamination and EV marker abundance}
 \usage{
-scatterPlot(x = NULL, Name = "new", src = "all", palette = "jco")
+scatterPlot(
+  x = NULL,
+  Name = "new",
+  src = "all",
+  palette = "jco",
+  jitter_b = TRUE,
+  Psize = 3
+)
 }
 \arguments{
 \item{x}{(DF- quantitative values in columns and last column holds the gene names - GN)}
@@ -14,6 +21,10 @@ scatterPlot(x = NULL, Name = "new", src = "all", palette = "jco")
 \item{src}{(string - which reference samples to include)}
 
 \item{palette}{(colorL or palette)}
+
+\item{jitter_b}{(boolean)}
+
+\item{Psize}{(float)}
 }
 \value{
 ggplot
