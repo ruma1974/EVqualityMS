@@ -53,6 +53,6 @@ EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "all")
 
 res=EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "plasma",palette =c("grey","yellow"))
 
-#- test 7 list common species
+#- test 8 list common species
 
 EVqualityMS::DFspecie
