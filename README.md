@@ -50,6 +50,14 @@ EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "all")
 
 res=EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "plasma",palette =c("grey","yellow"))
 
-#- test 7 list common species
+#- test 8 list common species
 
 EVqualityMS::DFspecie
+
+#- test 9 MaxQuant import
+
+filename_txt="path/proteinGroups.txt"
+DF=EVqualityMS::ImportMaxQuantProteinGroups(filename_txt, data_s = "iBAQ")
+
+res=EVqualityMS::heatmapEVqualityMISEV( DF,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE,plotCatDescription = TRUE)
+res
