@@ -21,8 +21,11 @@ remotes::install_github("ruma1974/EVqualityMS@master")
 library(EVqualityMS)
 
 #- test 1 - data in package
+
 data(DFmouseTest)
+
 data(DFspecie)
+
 data(DFurine)
 
 #- test 2 - EV and contaminant marker plot
