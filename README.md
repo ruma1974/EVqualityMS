@@ -21,11 +21,8 @@ remotes::install_github("ruma1974/EVqualityMS@master")
 library(EVqualityMS)
 
 #- test 1 - data in package
-
 data(DFmouseTest)
-
 data(DFspecie)
-
 data(DFurine)
 
 #- test 2 - EV and contaminant marker plot
@@ -34,7 +31,7 @@ EVqualityMS::HeatmapEVmarkers(DFurine,fontSizeRow = 20)
 
 #- test 3 - ISEV marker plot
 
-res=EVqualityMS::heatmapEVqualityMISEV( DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE,plotCatDescription = TRUE)
+res=EVqualityMS::heatmapEVqualityISEV( DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE,plotCatDescription = TRUE)
 
 #- test 4 - mapping mouse gene symbols
 
@@ -53,6 +50,6 @@ EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "all")
 
 res=EVqualityMS::scatterPlot(x = DFurine, Name = "Urine", src = "plasma",palette =c("grey","yellow"))
 
-#- test 8 list common species
+#- test 7 list common species
 
 EVqualityMS::DFspecie
