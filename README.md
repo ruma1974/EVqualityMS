@@ -1,5 +1,11 @@
 # install dependencies
 
+install.packages("BiocManager")
+
+install.packages("remotes")
+
+install.packages("magrittr")
+
 BiocManager::install("orthogene")
 
 BiocManager::install("ComplexHeatmap")
@@ -34,16 +40,17 @@ EVqualityMS::HeatmapEVmarkers(DFurine,fontSizeRow = 20)
 
 #- test 3 - ISEV marker plot
 
-res=EVqualityMS::heatmapEVqualityISEV( DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE,plotCatDescription = TRUE)
+res=EVqualityMS::heatmapEVqualityMISEV( DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE,plotCatDescription = TRUE)
 
 #- test 4 - mapping mouse gene symbols
 
 Fac=append(rep("Normal",9),rep("HFD",9))
+
 EVqualityMS::HeatmapEVmarkers(DFmouseTest,Fac=Fac,specie="Mus musculus",fontSizeRow = 20)
 
 #- test 5 - scatter plot of quality metrics for reference data
 
-exosomeRM::scatterPlot()
+EVqualityMS::scatterPlot()
 
 #- test 6 - scatter plot of quality metrics for all reference data and new data
 
