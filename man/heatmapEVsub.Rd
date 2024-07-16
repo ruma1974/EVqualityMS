@@ -2,7 +2,7 @@
 % Please edit documentation in R/EVqualityMSpF.R
 \name{heatmapEVsub}
 \alias{heatmapEVsub}
-\title{Plot heatmap withsubpopulation  markers from  Kowal et al 2016 paper}
+\title{Plot heatmap with subpopulation  markers from  Kowal et al 2016 paper}
 \usage{
 heatmapEVsub(
   DF,
@@ -27,7 +27,7 @@ heatmapEVsub(
 list
 }
 \description{
-Plot heatmap withsubpopulation  markers from  Kowal et al 2016 paper
+Plot heatmap with subpopulation  markers from  Kowal et al 2016 paper
 }
 \examples{
 ---

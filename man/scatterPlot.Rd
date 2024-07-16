@@ -7,16 +7,22 @@
 scatterPlot(
   x = NULL,
   Name = "new",
+  Title = "",
   src = "all",
   palette = "jco",
   jitter_b = TRUE,
-  Psize = 3
+  Psize = 3,
+  scaleData = TRUE,
+  NoDensity = TRUE,
+  addRefLines = FALSE
 )
 }
 \arguments{
 \item{x}{(DF- quantitative values in columns and last column holds the gene names - GN)}
 
 \item{Name}{(string - name of the new samples)}
+
+\item{Title}{(string - plot title)}
 
 \item{src}{(string - which reference samples to include)}
 
@@ -25,6 +31,12 @@ scatterPlot(
 \item{jitter_b}{(boolean)}
 
 \item{Psize}{(float)}
+
+\item{scaleData}{(boolean)}
+
+\item{NoDensity}{(boolean)}
+
+\item{addRefLines}{(boolean)}
 }
 \value{
 ggplot
