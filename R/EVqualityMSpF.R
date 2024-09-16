@@ -157,10 +157,11 @@ id2=which(EVqualityMS::ExoData$lEV[i]==rownames(mat))
 colL[id2]="blue"
 }
 # plot
-x11(w=20,h=10)
+# plotting works different on MAc and cause errors
+#x11(w=20,h=10)
 p=ComplexHeatmap::Heatmap(t(mat), col = color, name = "ranked expression",heatmap_legend_param = list(at = c(0, 0.25, 0.5, 0.75, 1)),column_names_gp = ggfun::gpar(col = colL,fontsize = fontSizeCol),row_names_gp = grid::gpar(fontsize = fontSizeRow))
 
-print(p)
+#print(p)
 }
 # print Q index 
 idxCL=which(x$GN %in% EVqualityMS::ExoData[["Contaminants"]])
