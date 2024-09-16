@@ -38,6 +38,11 @@ data(DFurine)
 res=EVqualityMS::HeatmapEVmarkers(DFurine,fontSizeRow = 20)
 res$Heatmap
 
+# save and change dimensions
+png("filename.png", res = 300, width = 4500, height = 2000)
+print(res$Heatmap)
+dev.off()
+
 #- test 3 - ISEV marker plot
 
 res=EVqualityMS::heatmapEVqualityMISEV( DFurine,Fac = NULL,color = NULL,CatColL = NULL,IncludeAlbumine = TRUE,plotCatDescription = TRUE)
