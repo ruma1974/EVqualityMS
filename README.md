@@ -35,7 +35,8 @@ data(DFurine)
 
 #- test 2 - EV and contaminant marker plot
 
-EVqualityMS::HeatmapEVmarkers(DFurine,fontSizeRow = 20)
+res=EVqualityMS::HeatmapEVmarkers(DFurine,fontSizeRow = 20)
+res$Heatmap
 
 #- test 3 - ISEV marker plot
 
@@ -45,7 +46,8 @@ res=EVqualityMS::heatmapEVqualityMISEV( DFurine,Fac = NULL,color = NULL,CatColL 
 
 Fac=append(rep("Normal",9),rep("HFD",9))
 
-EVqualityMS::HeatmapEVmarkers(DFmouseTest,Fac=Fac,specie="Mus musculus",fontSizeRow = 20)
+res=EVqualityMS::HeatmapEVmarkers(DFmouseTest,Fac=Fac,specie="Mus musculus",fontSizeRow = 20)
+res$Heatmap
 
 #- test 5 - scatter plot of quality metrics for reference data
 
