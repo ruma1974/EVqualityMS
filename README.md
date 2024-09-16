@@ -38,7 +38,7 @@ data(DFurine)
 res=EVqualityMS::HeatmapEVmarkers(DFurine,fontSizeRow = 20)
 res$Heatmap
 
-# save and change dimensions
+#- save and change dimensions
 png("filename.png", res = 300, width = 4500, height = 2000)
 print(res$Heatmap)
 dev.off()
