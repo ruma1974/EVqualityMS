@@ -1,22 +1,21 @@
 # install dependencies
+if (!require(BiocManager, quietly = TRUE)) install.packages("BiocManager")
 
-install.packages("BiocManager")
+if (!require(orthogene, quietly = TRUE)) BiocManager::install("orthogene")
 
-install.packages("remotes")
+if (!require(ComplexHeatmap, quietly = TRUE)) BiocManager::install("ComplexHeatmap")
 
-install.packages("magrittr")
+if (!require(scales, quietly = TRUE)) install.packages("scales")
 
-BiocManager::install("orthogene")
+if (!require(dplyr, quietly = TRUE)) install.packages("dplyr")
 
-BiocManager::install("ComplexHeatmap")
+if (!require(gplots, quietly = TRUE)) install.packages("gplots")
 
-install.packages("scales")
+if (!require(ggpubr, quietly = TRUE)) install.packages("ggpubr")
 
-install.packages("dplyr")
+if (!require(remotes, quietly = TRUE)) install.packages("remotes")
 
-install.packages("gplots")
-
-install.packages("ggpubr")
+if (!require(magrittr, quietly = TRUE)) install.packages("magrittr")
 
 # install EVqualityMS
 
